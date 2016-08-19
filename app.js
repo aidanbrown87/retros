@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var http = require('http').Server(app);
 var path = require('path');
 var bodyParser = require('body-parser');
 
@@ -11,6 +12,6 @@ app.get('/', function (req, res) {
 });
 
 var port = 10000;
-app.listen(port, function () {
+http.listen(port, function () {
     console.log('listening on *:' + port);
 });
