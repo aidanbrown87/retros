@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './Board.js';
+import Nav from './Nav.js';
 
 export default React.createClass({
 
@@ -7,7 +8,11 @@ export default React.createClass({
     const postIts = ["one", "two", "three"];
 
     return (
-      <Board data={postIts} />
+      <div>
+        <Nav />
+        <Board data={postIts} />
+      </div>
+
     );
   }
 })

@@ -21486,6 +21486,10 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
+	var _Nav = __webpack_require__(177);
+
+	var _Nav2 = _interopRequireDefault(_Nav);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _react2.default.createClass({
@@ -21493,12 +21497,47 @@
 	  render: function render() {
 	    var postIts = ["one", "two", "three"];
 
-	    return _react2.default.createElement(_Board2.default, { data: postIts });
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(_Nav2.default, null),
+	      _react2.default.createElement(_Board2.default, { data: postIts })
+	    );
 	  }
 	});
 
 /***/ },
 /* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "ul",
+	    { className: "postIts" },
+	    props.data.map(function (result) {
+	      return _react2.default.createElement(
+	        "li",
+	        { key: result },
+	        result
+	      );
+	    })
+	  );
+	};
+
+/***/ },
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21515,15 +21554,9 @@
 
 	exports.default = function (props) {
 	  return _react2.default.createElement(
-	    'ul',
+	    'nav',
 	    null,
-	    props.data.map(function (result) {
-	      return _react2.default.createElement(
-	        'li',
-	        { key: result },
-	        result
-	      );
-	    })
+	    _react2.default.createElement('img', { id: 'logo', src: './images/retros-logo4.png' })
 	  );
 	};
 

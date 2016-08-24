@@ -1,7 +1,7 @@
 module.exports = {
   entry: './src/client.js',
   output: {
-    path: './public',
+    path: './public/',
     filename: 'bundle.js'
   },
   module: {
@@ -17,6 +17,7 @@ module.exports = {
     ]
   },
   resolve: {
+    modulesDirectories: ['node_modules', './src'],
     extensions: ['', '.js', '.json']
   }
 };

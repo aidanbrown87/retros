@@ -1,0 +1,28 @@
+nav {
+  height: 50px;
+  width: 100%;
+  background-color: gray;
+  margin-bottom: 20px;
+}
+
+nav #logo {
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: auto;
+}
+
+.postIts {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.postIts li {
+  padding: 5px 10px;
+  margin: 5px ;
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+  float: left;
+  text-align: center;
+}
