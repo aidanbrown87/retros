@@ -20,6 +20,11 @@ io.on('connection', function(socket){
       io.emit('chat message', "Hello")
     },1000)
   });
+
+  socket.on('postIt', (text) => {
+    console.log("postIt received: ", text);
+    io.emit('postItUpdate', text)
+  })
 });
 
 var port = 10000;
