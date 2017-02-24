@@ -27,11 +27,13 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js",
     "webpack-watch": "webpack -w",
     "dev": "concurrent --kill-others \"npm run webpack-watch\" \"npm run start\""
   },
   "devDependencies": {
-    "concurrently": "^2.2.0"
+    "concurrently": "^3.3.0"
   }
 }
