@@ -4,25 +4,28 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var bodyParser = require('body-parser');
+import { createStore } from 'redux'
+
+import reducer from './client/src/reducers/index'
+import { addPostIt } from './client/src/actions/index'
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+let store = createStore(reducer)
+
+/*
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
+*/
 
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-    //io.emit('chat message', msg);
-    setInterval( function() {
-      io.emit('chat message', "Hello")
-    },1000)
-  });
+  socket.emit('board', store.getState())
 
   socket.on('postIt', (text) => {
     console.log("postIt received: ", text);
+    store.dispatch(addPostIt(text))
     io.emit('postItUpdate', text)
   })
 });

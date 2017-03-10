@@ -8,8 +8,10 @@ export const addPostIt = (text) => {
 }
 
 export const updatePosition = (id, xPos, yPos) => {
-  type: 'UPDATE_POSITION',
-  id,
-  xPos,
-  yPos
+  return {
+    type: 'UPDATE_POSITION',
+    id,
+    xPos,
+    yPos
+  }
 }
