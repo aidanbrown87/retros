@@ -15,3 +15,17 @@ export const updatePosition = (id, xPos, yPos) => {
     yPos
   }
 }
+
+export const sendPostIt = (text) => {
+  return {
+    type: 'server/addPostIt',
+    data: text
+  }
+}
+
+export const addBoard = (board) => {
+  return {
+    type: 'ADD_BOARD',
+    board
+  }
+}
