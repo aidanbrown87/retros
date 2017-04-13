@@ -1,0 +1,34 @@
+.postit-toolbar button {
+  background: none;
+  border: none;
+}
+
+.postit-toolbar {
+  align-self: flex-end;
+}
+
+.postit-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.postIt {
+  padding: 5px 10px;
+  margin: 5px ;
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+  float: left;
+  text-align: center;
+  box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.13);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon {
+  height: 12px;
+}

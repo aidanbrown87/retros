@@ -29,3 +29,17 @@ export const addBoard = (board) => {
     board
   }
 }
+
+export const addNewPostIt = (id) => {
+  return {
+    type: 'ADD_NEW',
+    id
+  }
+}
+
+export const editPostIt = (id) => {
+  return {
+    type: 'EDIT_POSTIT',
+    id
+  }
+}
