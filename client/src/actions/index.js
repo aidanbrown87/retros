@@ -1,9 +1,8 @@
 let nextPostItId = 0
-export const addPostIt = (text) => {
+export const addPostIt = () => {
   return {
-    type: 'ADD_POSTIT',
+    type: 'ADD_NEW',
     id: nextPostItId++,
-    text
   }
 }
 
@@ -16,12 +15,33 @@ export const updatePosition = (id, xPos, yPos) => {
   }
 }
 
-export const sendPostIt = (text) => {
+export const sendPostIt = () => {
   return {
-    type: 'server/addPostIt',
-    data: text
+    type: 'server/addPostIt'
   }
 }
+
+export const sendNewPostIt = () => {
+  return {
+    type: 'server/addNewPostIt'
+  }
+}
+
+export const sendEditPostIt = (id, text) => {
+  return {
+    type: 'server/editPostIt',
+    id,
+    text
+  }
+}
+
+export const sendFinishEdit = (id) => {
+  return {
+    type: 'server/finishEdit',
+    id,
+  }
+}
+
 
 export const addBoard = (board) => {
   return {
@@ -40,6 +60,21 @@ export const addNewPostIt = (id) => {
 export const editPostIt = (id) => {
   return {
     type: 'EDIT_POSTIT',
+    id
+  }
+}
+
+export const updatePostIt = (id, text) => {
+  return {
+    type: 'UPDATE_POSTIT',
+    id,
+    text
+  }
+}
+
+export const finishEdit = (id) => {
+  return {
+    type: 'FINISH_EDIT',
     id
   }
 }

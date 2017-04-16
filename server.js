@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 import { createStore, combineReducers } from 'redux'
 
 import reducer from './client/src/reducers/index'
-import { addPostIt, addBoard } from './client/src/actions/index'
+import { addPostIt, addBoard, updatePostIt, finishEdit } from './client/src/actions/index'
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -37,8 +37,20 @@ io.on('connection', function(socket){
       store.dispatch(newAction)
       io.emit('action', newAction)
       break
+    case "server/editPostIt":
+      console.log("edit postIt received with Middleware: ", action);
+      const editAction = updatePostIt(action.id, action.text)
+      store.dispatch(editAction)
+      io.emit('action', editAction)
+      break
+    case "server/finishEdit":
+      const finishEditAction = finishEdit(action.id, action.text)
+      store.dispatch(finishEditAction)
+      io.emit('action', finishEditAction)
+      break
     case "server/deletePostIt":
       console.log("trying to delete postit")
+      break
   }})
 });
 
