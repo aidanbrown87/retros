@@ -18,13 +18,13 @@ class Board extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <ul className="postIts">
         {this.props.postIts.map((result) => {
           return <PostIt key={result.id}
             postIt={result} editPostIt={this.handleClick}
             onEdit={this.handleEdit} finishEdit={this.handleFinishEdit}
+            username={this.props.username}
           />
         })}
       </ul>
@@ -34,9 +34,9 @@ class Board extends React.Component {
 }
 
 const mapStateToProps = (state,ownProps) => {
-    console.log("mapsStateToProps", state);
     return {
-        postIts: Object.values(state.postIts)
+        postIts: Object.values(state.postIts),
+        username: state.user.username
     };
 };
 

@@ -32,8 +32,8 @@ io.on('connection', function(socket){
 
   socket.on('action', (action) => { switch (action.type) {
     case "server/addPostIt":
-      console.log("postIt received with Middleware: ", action.data);
-      const newAction = addPostIt(action.data)
+      console.log("postIt received from: ", action.author);
+      const newAction = addPostIt(action.author)
       store.dispatch(newAction)
       io.emit('action', newAction)
       break

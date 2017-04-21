@@ -16,7 +16,7 @@ const postIts = (state = {}, action) => {
     console.log("addnew");
     return {
       ...state,
-      [action.id]: {id: action.id, text: "", xPos: 0, yPos: 0, isEditing: true}
+      [action.id]: {id: action.id, text: "", xPos: 0, yPos: 0, isEditing: true, author: action.author}
     }
 
     case 'EDIT_POSTIT':
@@ -41,7 +41,6 @@ const postIts = (state = {}, action) => {
     }
 
     default:
-    console.log("default reducer", state);
       return state
   }
 }

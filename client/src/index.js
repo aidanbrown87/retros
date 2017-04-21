@@ -7,6 +7,12 @@ import createSocketIoMiddleware from 'redux-socket.io';
 import RetroApp from './reducers/index';
 import App from './components/App';
 import './index.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 const socket = io()
 const socketIoMiddleware = createSocketIoMiddleware(socket, "server/")
@@ -15,7 +21,9 @@ let store = createStore(RetroApp, applyMiddleware(socketIoMiddleware));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
 );

@@ -1,21 +1,28 @@
 import React from 'react'
 import Draggable from 'react-draggable'
 import edit from './images/edit.svg'
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import Edit from 'material-ui/svg-icons/editor/mode-edit';
 import './postIt.css'
 
 const PostItInput = (props) => {
   const onChange = (event) => {
-    console.log("onChange", event);
     props.onEdit(props.id, event.target.value)
   }
 
   const onBlur = (event) => {
-    console.log("onBlur");
     props.onBlur(props.id)
   }
 
   return (
-    <textarea className="postIt-input" value={props.text} onChange={onChange} onBlur={onBlur}/>
+    <TextField
+      value={props.text}
+      onChange={onChange}
+      onBlur={onBlur}
+      style={inputStyles}
+      multiLine fullWidth
+    />
   )
 }
 
@@ -23,11 +30,11 @@ const PostIt = (props) => {
 
   return (
     <Draggable>
-      <li className="postIt">
+      <Paper zDepth={2} className="postIt">
         <div className="postit-toolbar">
-          {!props.postIt.isEditing &&
+          {!props.postIt.isEditing && props.postIt.author == props.username &&
             <button onClick={() => props.editPostIt(props.postIt.id)}>
-              <img src={edit} className="edit-icon" alt="edit" />
+              <Edit className="edit-icon" style={iconStyles} />
             </button>
           }
 
@@ -35,10 +42,21 @@ const PostIt = (props) => {
         {props.postIt.isEditing ?
           <PostItInput text={props.postIt.text} onEdit={props.onEdit} onBlur={props.finishEdit} id={props.postIt.id}/> :
           <div className="postit-text">{props.postIt.text}</div>}
-      </li>
+      </Paper>
     </Draggable>
   )
 
+}
+
+const iconStyles = {
+  height: 12,
+  width: 12
+};
+
+const inputStyles = {
+  margin: 10,
+  fontSize: 12,
+  lineHeight: 1.5
 }
 
 export default PostIt
