@@ -2,9 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
 import { addUsername } from '../actions/index'
 import TextField from 'material-ui/TextField';
+
+
+const styles = {
+  float: 'right',
+  display: 'flex',
+  alignItems: 'center',
+  height: '100%',
+  color: 'white',
+}
 
 
 class User extends React.Component {
@@ -50,14 +58,6 @@ class User extends React.Component {
     );
   }
 
-}
-
-const styles = {
-  float: 'right',
-  display: 'flex',
-  alignItems: 'center',
-  height: '100%',
-  color: 'white',
 }
 
 export default connect(state => state.user)(User)

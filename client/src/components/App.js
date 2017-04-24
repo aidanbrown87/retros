@@ -1,7 +1,6 @@
 import React from 'react';
 import Board from './Board.js';
 import Nav from './Nav.js';
-import User from './User.js'
 import AddButton from './AddNewItemButton'
 import '../App.css'
 
