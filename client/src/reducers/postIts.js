@@ -7,24 +7,27 @@ const postIts = (state = {}, action) => {
         {id: action.id, text: action.text, xPos: 0, yPos: 0}
       ]
     case 'UPDATE_POSITION':
-      return state.map(item => item.id === action.id ? {...item, xPos: action.xPos, yPos: action.yPos} : item)
+      return {
+        ...state,
+        [action.id]: {...state[action.id], xPos: action.xPos, yPos: action.yPos}
+      }
 
     case 'ADD_BOARD':
       return action.board.postIts
 
     case 'ADD_NEW':
-    console.log("addnew");
-    return {
-      ...state,
-      [action.id]: {id: action.id, text: "", xPos: 0, yPos: 0, isEditing: true, author: action.author}
-    }
+      console.log("addnew");
+      return {
+        ...state,
+        [action.id]: {id: action.id, text: "", xPos: 0, yPos: 0, isEditing: true, author: action.author}
+      }
 
     case 'EDIT_POSTIT':
-    console.log('editpostit');
-    return {
-      ...state,
-      [action.id]: {...state[action.id], isEditing: true}
-    }
+      console.log('editpostit');
+      return {
+        ...state,
+        [action.id]: {...state[action.id], isEditing: true}
+      }
 
     case 'UPDATE_POSTIT':
       console.log('updatepostit');
@@ -34,11 +37,11 @@ const postIts = (state = {}, action) => {
       }
 
     case 'FINISH_EDIT':
-    console.log('finish edit');
-    return {
-      ...state,
-      [action.id]: {...state[action.id], isEditing: false}
-    }
+      console.log('finish edit');
+      return {
+        ...state,
+        [action.id]: {...state[action.id], isEditing: false}
+      }
 
     default:
       return state

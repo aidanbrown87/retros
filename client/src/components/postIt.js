@@ -37,19 +37,31 @@ const PostItInput = (props) => {
 }
 
 const PostIt = (props) => {
+  const { postIt, username, editPostIt, updatePosition } = props
+  const { isEditing, author, xPos, yPos, id } = postIt
+  const position = {x: xPos, y: yPos}
+
+  const onControlledDrag = (e, position) => {
+    const {x, y} = position;
+    updatePosition(id, x, y)
+  }
 
   return (
-    <Draggable>
+    <Draggable position={position} onDrag={onControlledDrag}>
       <Paper zDepth={2} className="postIt">
         <div className="postit-toolbar">
-          {!props.postIt.isEditing && props.postIt.author === props.username &&
-            <button onClick={() => props.editPostIt(props.postIt.id)}>
-              <Edit className="edit-icon" style={iconStyles} />
-            </button>
+          {!isEditing &&
+            author === username ?
+              <button onClick={() => editPostIt(id)}>
+                <Edit className="edit-icon" style={iconStyles} />
+              </button>
+              :
+              null
+
           }
 
         </div>
-        {props.postIt.isEditing ?
+        {props.postIt.isEditing && props.postIt.author === props.username ?
           <PostItInput text={props.postIt.text} onEdit={props.onEdit} onBlur={props.finishEdit} id={props.postIt.id}/> :
           <div className="postit-text">{props.postIt.text}</div>}
       </Paper>

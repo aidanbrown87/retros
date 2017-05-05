@@ -38,6 +38,15 @@ export const sendFinishEdit = (id) => {
   }
 }
 
+export const sendPositionUpdate = (id, xPos, yPos) => {
+  return {
+    type: 'server/updatePosition',
+    id,
+    xPos,
+    yPos
+  }
+}
+
 
 export const addBoard = (board) => {
   return {

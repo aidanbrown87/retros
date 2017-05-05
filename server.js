@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 import { createStore, combineReducers } from 'redux'
 
 import reducer from './client/src/reducers/index'
-import { addPostIt, addBoard, updatePostIt, finishEdit } from './client/src/actions/index'
+import { addPostIt, addBoard, updatePostIt, finishEdit, updatePosition } from './client/src/actions/index'
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -51,6 +51,10 @@ io.on('connection', function(socket){
     case "server/deletePostIt":
       console.log("trying to delete postit")
       break
+    case "server/updatePosition":
+      const positionAction = updatePosition(action.id, action.xPos, action.yPos)
+      store.dispatch(positionAction)
+      io.emit('action', positionAction)
   }})
 });
 
