@@ -13,7 +13,7 @@ const AddNewItemButton = (props) => {
   }
 
   return (
-    <FloatingActionButton secondary={true} className="fab" onTouchTap={handleClick}>
+    <FloatingActionButton secondary={true} className="fab" onTouchTap={handleClick} style={{position: 'fixed'}}>
       <ContentAdd />
     </FloatingActionButton>
   );

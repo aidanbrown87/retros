@@ -1,0 +1,43 @@
+input {
+  color: white
+}
+
+.homeContent {
+  width: 300px;
+  margin: 50px auto;
+}
+
+.or {
+  text-align: center;
+  margin: 20px;
+}
+
+.joinContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height:36px;
+  width: 300px;
+  background-color: rgb(255, 64, 129);
+  border-radius: 2px;
+  transition: all ease 0.5s;
+}
+
+.joinFields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transition: all ease 0.5s;
+  transition-delay: 0.2s
+}
+
+.open {
+  opacity: 1;
+}
+
+.openContainer {
+  height: 500px;
+  width: 500px;
+  border-radius: 50%
+}

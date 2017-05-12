@@ -5,16 +5,6 @@ import FlatButton from 'material-ui/FlatButton'
 import { addUsername } from '../actions/index'
 import TextField from 'material-ui/TextField';
 
-
-const styles = {
-  float: 'right',
-  display: 'flex',
-  alignItems: 'center',
-  height: '100%',
-  color: 'white',
-}
-
-
 class User extends React.Component {
   constructor(props) {
     super(props);
@@ -33,8 +23,7 @@ class User extends React.Component {
   render() {
     return (
       <div>
-      {this.props.username ?
-        <h3 style={styles}>{this.props.username}</h3> :
+      {!this.props.username &&
         <Dialog
             title="Add a Username"
             actions={
