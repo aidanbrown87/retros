@@ -1,9 +1,24 @@
 .postIt {
   display: flex;
+  flex-direction: column;
   align-content: center;
   justify-content: center;
   width: 150px;
   height: 150px;
   background-color: yellow;
   margin: 5px;
+}
+
+.postItInput {
+  background: none;
+  border: none;
+  border-bottom: 2px solid grey;
+  margin: 5px;
+  padding: 5px;
+  height: auto;
+}
+
+.postItInput:focus {
+  outline: none;
+  border-top: 1px solid red;
 }
