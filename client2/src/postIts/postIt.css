@@ -1,0 +1,9 @@
+.postIt {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  background-color: yellow;
+  margin: 5px;
+}

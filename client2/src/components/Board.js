@@ -1,30 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import PostIt from '../postIts/PostIt';
+import AddPostItButton from './AddPostItButton'
+
+import './board.css';
 
 class Board extends Component {
-    render() {
-        return (
-            <div>
-                <AppBar>
-                    <Toolbar>
-                        <Typography variant="title" color="inherit" style={{ flexGrow: 1 }} >
-                            Retros
-                        </Typography>
-                        <Button color="inherit">Login</Button>
-                    </Toolbar>
-                </AppBar>
-                
-            </div>
-        );
-    }
+  render() {
+    const { postIts } = this.props;
+    console.log(this.props)
+    return (
+      <div className='board'>
+
+        { postIts ? Object.values(postIts).map(obj => <PostIt {...obj} />) : null}
+        <AddPostItButton />
+      </div>
+    )
+  }
 }
 
-Board.propTypes = {
 
-};
 
-export default Board;
+export default connect(state => ({ postIts: state.postIts, test: 'test' }))(Board)
