@@ -25,7 +25,13 @@ export default class PostIt extends Component {
     const { text, id,  } = this.props;
     return (
       <div className='postIt' >
-        <input ref={(comp) => this.ref = comp} className='postItInput' value={text} onChange={this.updateText} />
+        <textarea
+          ref={(comp) => this.ref = comp}
+          className='postItInput'
+          value={text}
+          onChange={this.updateText}
+          rows={4}
+        />
       </div>
     )
   }

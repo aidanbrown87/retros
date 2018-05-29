@@ -16,6 +16,8 @@
   margin: 5px;
   padding: 5px;
   height: auto;
+  text-align: center;
+  resize: none;
 }
 
 .postItInput:focus {
