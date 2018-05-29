@@ -10,6 +10,11 @@ export default class PostIt extends Component {
     updatePostIt: PropTypes.func.isRequired
   }
 
+  componentDidMount() {
+    this.ref.focus()
+  }
+  
+
   updateText = (event) => {
     const { updatePostIt, id } = this.props;
     updatePostIt(id, event.target.value)
@@ -20,7 +25,7 @@ export default class PostIt extends Component {
     const { text, id,  } = this.props;
     return (
       <div className='postIt' >
-        <input className='postItInput' value={text} onChange={this.updateText} />
+        <input ref={(comp) => this.ref = comp} className='postItInput' value={text} onChange={this.updateText} />
       </div>
     )
   }
