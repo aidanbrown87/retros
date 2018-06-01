@@ -15,6 +15,15 @@ export const updatePostIt = (id, text) => {
   }
 }
 
+export const updatePosition = (id, xPos, yPos) => {
+  return {
+    type: 'UPDATE_POSITION',
+    id,
+    xPos,
+    yPos
+  }
+}
+
 export default function(state = {}, action) {
   switch (action.type) {
     case 'ADD_POSTIT':
@@ -23,11 +32,11 @@ export default function(state = {}, action) {
         ...state,
         {id: action.id, text: action.text, xPos: 0, yPos: 0}
       ]
-    // case 'UPDATE_POSITION':
-    //   return {
-    //     ...state,
-    //     [action.id]: {...state[action.id], xPos: action.xPos, yPos: action.yPos}
-    //   }
+    case 'UPDATE_POSITION':
+      return {
+        ...state,
+        [action.id]: {...state[action.id], xPos: action.xPos, yPos: action.yPos}
+      }
 
     // case 'ADD_BOARD':
     //   return action.board.postIts

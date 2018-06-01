@@ -4,17 +4,21 @@ import PostIt from "../postIts/PostIt";
 import AddPostItButton from "./AddPostItButton";
 
 import "./board.css";
-import { updatePostIt } from "../postIts/reducer";
+import { updatePostIt, updatePosition } from "../postIts/reducer";
 
 class Board extends Component {
   render() {
-    const { postIts, updatePostIt } = this.props;
+    const { postIts, updatePostIt, updatePosition } = this.props;
     console.log(this.props);
     return (
       <div className="board">
         {postIts
           ? Object.values(postIts).map(obj => (
-              <PostIt {...obj} updatePostIt={updatePostIt} />
+              <PostIt
+                {...obj}
+                updatePostIt={updatePostIt}
+                updatePosition={updatePosition}
+              />
             ))
           : null}
         <AddPostItButton />
@@ -24,7 +28,8 @@ class Board extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updatePostIt: (id, text) => dispatch(updatePostIt(id, text))
+  updatePostIt: (id, text) => dispatch(updatePostIt(id, text)),
+  updatePosition: (id, x, y) => dispatch(updatePosition(id, x, y)),
 });
 
 export default connect(

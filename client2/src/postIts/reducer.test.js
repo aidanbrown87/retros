@@ -1,4 +1,4 @@
-import reducer, { addPostIt, updatePostIt } from "./reducer";
+import reducer, { addPostIt, updatePostIt, updatePosition } from "./reducer";
 
 jest.mock("./idGenerator.js");
 import { getNextId } from "./idGenerator";
@@ -44,3 +44,12 @@ it("updates a post it", () => {
     text: newText,
   });
 });
+
+it("updates the position", () => {
+  const newState = reducer(initialState, updatePosition(1, 200, 300));
+  expect(newState[1]).toEqual({
+    ...initialState[1],
+    xPos: 200,
+    yPos: 300,
+  })
+})

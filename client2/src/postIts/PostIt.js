@@ -1,13 +1,25 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import './postIt.css';
 
+
 export default class PostIt extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      dragging: false,
+      dragStartX: undefined,
+      dragStartY: undefined,
+    }
+  }
+
   static propTypes = {
     text: PropTypes.string,
-    id: PropTypes.id,
-    updatePostIt: PropTypes.func.isRequired
+    id: PropTypes.number,
+    xPos: PropTypes.number,
+    yPos: PropTypes.number,
+    updatePostIt: PropTypes.func.isRequired,
+    updatePosition: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -21,10 +33,41 @@ export default class PostIt extends Component {
 
   }
 
+  onDragStart = ({ clientX, clientY}) => {
+    this.setState({
+      dragging: true,
+      dragStartX: clientX,
+      dragStartY: clientY,
+    });
+  }
+
+  onDragEnd = ({ clientX, clientY }) => {
+    const { updatePosition, id, xPos, yPos } = this.props;
+    const { dragStartX, dragStartY } = this.state;
+    const xMovement = clientX - dragStartX;
+    const yMovement = clientY - dragStartY;
+    
+    updatePosition(id, (xPos + xMovement), (yPos + yMovement))
+    this.setState({
+      dragging: false,
+      dragStartX: undefined,
+      dragStartY: undefined,
+    })
+  }
+
+
   render() {
-    const { text, id,  } = this.props;
+    const { text, id, xPos, yPos } = this.props;
+    const { dragging } = this.state;
     return (
-      <div className='postIt' >
+      <div
+        className={dragging ? 'postIt dragging' : 'postIt'}
+        style={{ left: xPos, top: yPos }}
+        draggable
+        //onDrag={this.onDrag}
+        onDragStart={this.onDragStart}
+        onDragEnd={this.onDragEnd}
+      >
         <textarea
           ref={(comp) => this.ref = comp}
           className='postItInput'
