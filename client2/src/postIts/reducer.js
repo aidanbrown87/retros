@@ -27,7 +27,6 @@ export const updatePosition = (id, xPos, yPos) => {
 export default function(state = {}, action) {
   switch (action.type) {
     case 'ADD_POSTIT':
-      console.log("addpostiit");
       return [
         ...state,
         {id: action.id, text: action.text, xPos: 0, yPos: 0}
@@ -42,7 +41,6 @@ export default function(state = {}, action) {
     //   return action.board.postIts
 
     case 'ADD_NEW':
-      console.log("addnew");
       const id = getNextId()
       return {
         ...state,
@@ -57,7 +55,6 @@ export default function(state = {}, action) {
     //   }
 
     case 'UPDATE_POSTIT':
-      console.log('updatepostit');
       return {
         ...state,
         [action.id]: {...state[action.id], text: action.text}

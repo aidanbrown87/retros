@@ -27,10 +27,8 @@ class AddPostItButton extends Component {
   }
 }
 
-const mapStateToProps = state => state.user;
-
 const mapDispatchToProps = (dispatch, ownProps) => ({
   addPostIt: () => dispatch(addPostIt("test"))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPostItButton);
+export default connect(undefined, mapDispatchToProps)(AddPostItButton);

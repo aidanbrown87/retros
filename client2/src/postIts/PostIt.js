@@ -65,7 +65,7 @@ export default class PostIt extends Component {
 
 
   render() {
-    const { text, id, xPos, yPos } = this.props;
+    const { text, xPos, yPos } = this.props;
     const { dragging } = this.state;
     return (
       <div

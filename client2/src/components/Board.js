@@ -9,12 +9,12 @@ import { updatePostIt, updatePosition } from "../postIts/reducer";
 class Board extends Component {
   render() {
     const { postIts, updatePostIt, updatePosition } = this.props;
-    console.log(this.props);
     return (
       <div className="board">
         {postIts
           ? Object.values(postIts).map(obj => (
               <PostIt
+                key={obj.id}
                 {...obj}
                 updatePostIt={updatePostIt}
                 updatePosition={updatePosition}
