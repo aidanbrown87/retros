@@ -35,7 +35,6 @@ export default class PostIt extends Component {
 
   onDragStart = ({ clientX, clientY}) => {
     this.setState({
-      dragging: true,
       dragStartX: clientX,
       dragStartY: clientY,
     });
@@ -55,6 +54,15 @@ export default class PostIt extends Component {
     })
   }
 
+  onDragOver = (event) => {
+    this.setState({ dragging: true })
+  }
+
+  onKeyUp = (event) => {
+    const h = event.target;
+    h.height(50).height(h[0].scrollHeight);
+  }
+
 
   render() {
     const { text, id, xPos, yPos } = this.props;
@@ -67,6 +75,7 @@ export default class PostIt extends Component {
         //onDrag={this.onDrag}
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}
+        onDragOver={this.onDragOver}
       >
         <textarea
           ref={(comp) => this.ref = comp}
@@ -74,6 +83,7 @@ export default class PostIt extends Component {
           value={text}
           onChange={this.updateText}
           rows={4}
+          //onKeyUp={this.onKeyUp}
         />
       </div>
     )
