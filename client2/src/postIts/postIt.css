@@ -20,7 +20,7 @@
 
 .dragging {
   background: transparent;
-  border: 2px dashed grey;
+  border: 2px dashed rgba(128, 128, 128, 0.2);
   box-shadow: none;
 }
 
@@ -43,4 +43,8 @@
 .postItInput:focus {
   outline: none;
   border-top: 1px solid red;
+}
+
+.dragging .postItInput {
+  display: none;
 }
