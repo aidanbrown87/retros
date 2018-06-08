@@ -1,12 +1,10 @@
-.postIt {
+.postItContainer {
   position: absolute;
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
-  width: 150px;
-  height: 150px;
-  background-color: yellow;
+  background-color: #efe014;
   margin: 5px;
   cursor: move;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -14,7 +12,7 @@
 
 }
 
-.postIt:hover {
+.postItContainer:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.20), 0 3px 3px rgba(0,0,0,0.22);
 }
 
@@ -28,6 +26,20 @@
   box-shadow: none;
 }
 
+.postIt {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.edit_icon {
+  height: 20;
+  width: 20px;
+  cursor: pointer;
+}
 
 .postItInput {
   background: none;
@@ -47,4 +59,11 @@
 
 .dragging .postItInput {
   display: none;
+}
+
+.postIt_colours {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  transition: all 0.2s ease-in;
 }

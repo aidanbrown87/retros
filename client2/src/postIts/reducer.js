@@ -24,6 +24,14 @@ export const updatePosition = (id, xPos, yPos) => {
   }
 }
 
+export const updateColour = (id, colour) => {
+  return {
+    type: "UPDATE_COLOUR",
+    id,
+    colour,
+  }
+}
+
 export default function(state = {}, action) {
   switch (action.type) {
     case 'ADD_POSTIT':
@@ -58,6 +66,12 @@ export default function(state = {}, action) {
       return {
         ...state,
         [action.id]: {...state[action.id], text: action.text}
+      }
+
+    case "UPDATE_COLOUR" : 
+      return {
+        ...state,
+        [action.id]: {...state[action.id], colour: action.colour}
       }
 
     // case 'FINISH_EDIT':

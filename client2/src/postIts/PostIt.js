@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import './postIt.css';
+import bucket from './bucket.png';
 
 
 export default class PostIt extends Component {
@@ -10,6 +11,7 @@ export default class PostIt extends Component {
       dragging: false,
       dragStartX: undefined,
       dragStartY: undefined,
+      editing: false,
     }
   }
 
@@ -63,32 +65,69 @@ export default class PostIt extends Component {
     h.height(50).height(h[0].scrollHeight);
   }
 
+  onEdit = () => {
+    this.setState({ editing: !this.state.editing })
+  }
+
+  onChangeColour = (colour) => {
+    const { updateColour, id } = this.props;
+    updateColour(id, colour);
+    this.setState({ editing: false })
+  }
+
 
   render() {
-    const { text, xPos, yPos } = this.props;
-    const { dragging } = this.state;
+    const { text, xPos, yPos, colour } = this.props;
+    const { dragging, editing } = this.state;
     return (
       <div
-        className={dragging ? 'postIt dragging' : 'postIt'}
-        style={{ left: xPos, top: yPos }}
+        className={dragging ? 'postItContainer dragging' : 'postItContainer'}
+        style={{ left: xPos, top: yPos, backgroundColor: colour }}
         draggable
         //onDrag={this.onDrag}
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}
         onDragOver={this.onDragOver}
       >
-        <textarea
-          ref={(comp) => this.ref = comp}
-          className='postItInput'
-          value={text}
-          onChange={this.updateText}
-          rows={4}
-          //onKeyUp={this.onKeyUp}
-        />
+        <div className="postIt">
+          <textarea
+            ref={(comp) => this.ref = comp}
+            className='postItInput'
+            value={text}
+            onChange={this.updateText}
+            rows={4}
+            //onKeyUp={this.onKeyUp}
+          />
+          <img className="edit_icon" src={bucket} onClick={this.onEdit} />
+        </div>
+        
+        <div className="postIt_colours" style={{ height: editing ? 30 : 0 }}>
+          <Dot colour="#ff7a7a" updateColour={this.onChangeColour} />
+          <Dot colour="#65b8ff" updateColour={this.onChangeColour} />
+          <Dot colour="#f77aff" updateColour={this.onChangeColour} />
+          <Dot colour="#efe014" updateColour={this.onChangeColour} />
+          <Dot colour="#7aff91" updateColour={this.onChangeColour} />
+
+        </div>
       </div>
     )
   }
 }
 
 
+
+const Dot = ({ colour, updateColour }) => {
+  const onClick = () => {
+    console.log("Dot on Click")
+    updateColour(colour)
+  }
+  return (
+    <div
+      onClick={onClick}
+      style={{ backgroundColor: colour, height: 20, width: 20, borderRadius: "50%", border: "1px solid grey", margin: "0px 2px" }}
+    >
+      
+    </div>
+  );
+};
 

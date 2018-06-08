@@ -4,11 +4,11 @@ import PostIt from "../postIts/PostIt";
 import AddPostItButton from "./AddPostItButton";
 
 import "./board.css";
-import { updatePostIt, updatePosition } from "../postIts/reducer";
+import { updatePostIt, updatePosition, updateColour } from "../postIts/reducer";
 
 class Board extends Component {
   render() {
-    const { postIts, updatePostIt, updatePosition } = this.props;
+    const { postIts, updatePostIt, updatePosition, updateColour } = this.props;
     return (
       <div className="board">
         {postIts
@@ -18,6 +18,7 @@ class Board extends Component {
                 {...obj}
                 updatePostIt={updatePostIt}
                 updatePosition={updatePosition}
+                updateColour={updateColour}
               />
             ))
           : null}
@@ -30,6 +31,7 @@ class Board extends Component {
 const mapDispatchToProps = dispatch => ({
   updatePostIt: (id, text) => dispatch(updatePostIt(id, text)),
   updatePosition: (id, x, y) => dispatch(updatePosition(id, x, y)),
+  updateColour: (id, colour) => dispatch(updateColour(id, colour)),
 });
 
 export default connect(
