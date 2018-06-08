@@ -15,7 +15,7 @@ export default class PostIt extends Component {
 
   static propTypes = {
     text: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.string.isRequired,
     xPos: PropTypes.number,
     yPos: PropTypes.number,
     updatePostIt: PropTypes.func.isRequired,

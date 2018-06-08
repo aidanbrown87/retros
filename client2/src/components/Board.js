@@ -33,6 +33,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  state => ({ postIts: state.postIts, test: "test" }),
+  ({ postIts }) => ({ postIts }),
   mapDispatchToProps,
 )(Board);
