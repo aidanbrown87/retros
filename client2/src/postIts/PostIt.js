@@ -60,7 +60,6 @@ export default class PostIt extends Component {
 
   onDragOver = (event) => {
     if (this.state.dragging) {
-      console.log(event.target, '!!!', this.props.id)
       this.setState({ hidden: true })
     }
   }
