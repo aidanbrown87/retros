@@ -37,6 +37,7 @@ export default class PostIt extends Component {
 
   onDragStart = ({ clientX, clientY}) => {
     this.setState({
+      dragging: true,
       dragStartX: clientX,
       dragStartY: clientY,
     });
@@ -53,11 +54,15 @@ export default class PostIt extends Component {
       dragging: false,
       dragStartX: undefined,
       dragStartY: undefined,
+      hidden: false,
     })
   }
 
   onDragOver = (event) => {
-    this.setState({ dragging: true })
+    if (this.state.dragging) {
+      console.log(event.target, '!!!', this.props.id)
+      this.setState({ hidden: true })
+    }
   }
 
   onKeyUp = (event) => {
@@ -77,19 +82,19 @@ export default class PostIt extends Component {
 
 
   render() {
-    const { text, xPos, yPos, colour } = this.props;
-    const { dragging, editing } = this.state;
+    const { text, xPos, yPos, colour, id } = this.props;
+    const { dragging, editing, hidden } = this.state;
     return (
       <div
-        className={dragging ? 'postItContainer dragging' : 'postItContainer'}
-        style={{ left: xPos, top: yPos, backgroundColor: colour }}
+        className={dragging && hidden ? 'postItContainer dragging' : 'postItContainer'}
+        style={{ left: xPos, top: yPos, backgroundColor: dragging && hidden ? undefined : colour }}
         draggable
         //onDrag={this.onDrag}
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}
         onDragOver={this.onDragOver}
       >
-        <div className="postIt">
+        <div className="postIt" id={id}>
           <textarea
             ref={(comp) => this.ref = comp}
             className='postItInput'

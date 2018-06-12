@@ -57,7 +57,7 @@
   border-top: 1px solid red;
 }
 
-.dragging .postItInput {
+.dragging .postItInput, .dragging .edit_icon {
   display: none;
 }
 
