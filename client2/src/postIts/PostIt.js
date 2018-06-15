@@ -2,9 +2,17 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import './postIt.css';
 import bucket from './bucket.png';
+import { DragSource, DropTarget } from 'react-dnd';
+import { ItemTypes } from '../itemTypes';
 
+const PostItSourceSpec = {
+  beginDrag(props) {
+    const { id } = props;
+    return { postItId: id };
+  }
+}
 
-export default class PostIt extends Component {
+class PostIt extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,40 +43,6 @@ export default class PostIt extends Component {
 
   }
 
-  onDragStart = ({ clientX, clientY}) => {
-    this.setState({
-      dragging: true,
-      dragStartX: clientX,
-      dragStartY: clientY,
-    });
-  }
-
-  onDragEnd = ({ clientX, clientY }) => {
-    const { updatePosition, id, xPos, yPos } = this.props;
-    const { dragStartX, dragStartY } = this.state;
-    const xMovement = clientX - dragStartX;
-    const yMovement = clientY - dragStartY;
-    
-    updatePosition(id, (xPos + xMovement), (yPos + yMovement))
-    this.setState({
-      dragging: false,
-      dragStartX: undefined,
-      dragStartY: undefined,
-      hidden: false,
-    })
-  }
-
-  onDragOver = (event) => {
-    if (this.state.dragging) {
-      this.setState({ hidden: true })
-    }
-  }
-
-  onKeyUp = (event) => {
-    const h = event.target;
-    h.height(50).height(h[0].scrollHeight);
-  }
-
   onEdit = () => {
     this.setState({ editing: !this.state.editing })
   }
@@ -81,17 +55,14 @@ export default class PostIt extends Component {
 
 
   render() {
-    const { text, xPos, yPos, colour, id } = this.props;
+    const { text, xPos, yPos, colour, id, connectDragSource, isDragging, connectDropTarget, isOver } = this.props;
     const { dragging, editing, hidden } = this.state;
-    return (
+    if (isDragging) return null;
+
+    return connectDropTarget(connectDragSource(
       <div
-        className={dragging && hidden ? 'postItContainer dragging' : 'postItContainer'}
-        style={{ left: xPos, top: yPos, backgroundColor: dragging && hidden ? undefined : colour }}
-        draggable
-        //onDrag={this.onDrag}
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}
-        onDragOver={this.onDragOver}
+        className='postItContainer'
+        style={{ left: xPos, top: yPos, backgroundColor: colour }}
       >
         <div className="postIt" id={id}>
           <textarea
@@ -100,7 +71,6 @@ export default class PostIt extends Component {
             value={text}
             onChange={this.updateText}
             rows={4}
-            //onKeyUp={this.onKeyUp}
           />
           <img className="edit_icon" src={bucket} onClick={this.onEdit} />
         </div>
@@ -114,10 +84,29 @@ export default class PostIt extends Component {
 
         </div>
       </div>
-    )
+    ))
+  }
+}
+const boardTarget = {
+  drop(props, monitor, component) {
+    console.log("drop on POSTIT")
+  //   const { postItId, xPos, yPos, updatePosition } = monitor.getItem();
+  //   const { x, y } = monitor.getDifferenceFromInitialOffset();
+  //   props.updatePosition(postItId, (xPos + x), (yPos + y))
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
   }
 }
 
+export default DropTarget(ItemTypes.POSTIT, boardTarget, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver({ shallow: true }),
+}))(DragSource(ItemTypes.POSTIT, PostItSourceSpec, collect)(PostIt))
 
 
 const Dot = ({ colour, updateColour }) => {
