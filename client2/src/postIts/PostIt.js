@@ -55,42 +55,49 @@ class PostIt extends Component {
 
 
   render() {
-    const { text, xPos, yPos, colour, id, connectDragSource, isDragging, connectDropTarget, isOver } = this.props;
+    const { text, xPos, yPos, colour, id, connectDragSource, isDragging, connectDropTarget, isOver, inGroup } = this.props;
     const { dragging, editing, hidden } = this.state;
     if (isDragging) return null;
+    const positionStyle = inGroup ? {} : { left: xPos, top: yPos };
 
-    return connectDropTarget(connectDragSource(
-      <div
-        className='postItContainer'
-        style={{ left: xPos, top: yPos, backgroundColor: colour }}
-      >
-        <div className="postIt" id={id}>
-          <textarea
-            ref={(comp) => this.ref = comp}
-            className='postItInput'
-            value={text}
-            onChange={this.updateText}
-            rows={4}
-          />
-          <img className="edit_icon" src={bucket} onClick={this.onEdit} />
-        </div>
-        
-        <div className="postIt_colours" style={{ height: editing ? 30 : 0 }}>
-          <Dot colour="#ff7a7a" updateColour={this.onChangeColour} />
-          <Dot colour="#65b8ff" updateColour={this.onChangeColour} />
-          <Dot colour="#f77aff" updateColour={this.onChangeColour} />
-          <Dot colour="#efe014" updateColour={this.onChangeColour} />
-          <Dot colour="#7aff91" updateColour={this.onChangeColour} />
+    const postIt = (<div
+    className={ inGroup ? 'postItSimple' : 'postItContainer'}
+    style={{ ...positionStyle, backgroundColor: colour }}
+  >
+    <div className="postIt" id={id}>
+      <textarea
+        ref={(comp) => this.ref = comp}
+        className='postItInput'
+        value={text}
+        onChange={this.updateText}
+        rows={4}
+      />
+      <img className="edit_icon" src={bucket} onClick={this.onEdit} />
+    </div>
+    
+    <div className="postIt_colours" style={{ height: editing ? 30 : 0 }}>
+      <Dot colour="#ff7a7a" updateColour={this.onChangeColour} />
+      <Dot colour="#65b8ff" updateColour={this.onChangeColour} />
+      <Dot colour="#f77aff" updateColour={this.onChangeColour} />
+      <Dot colour="#efe014" updateColour={this.onChangeColour} />
+      <Dot colour="#7aff91" updateColour={this.onChangeColour} />
 
-        </div>
-      </div>
+    </div>
+  </div>)
+
+    return inGroup ? postIt : connectDropTarget(connectDragSource(
+      postIt
     ))
   }
 }
 const boardTarget = {
   drop(props, monitor, component) {
     console.log("drop on POSTIT")
-  //   const { postItId, xPos, yPos, updatePosition } = monitor.getItem();
+    const { id, xPos, yPos, inGroup } = props
+    console.log(props)
+    const { postItId, xPos: draggedXPos, yPos: draggedYPos, updatePosition } = monitor.getItem();
+    !inGroup && props.createGroup(props.id, postItId, xPos - 5, yPos - 5)
+  //   
   //   const { x, y } = monitor.getDifferenceFromInitialOffset();
   //   props.updatePosition(postItId, (xPos + x), (yPos + y))
   }
