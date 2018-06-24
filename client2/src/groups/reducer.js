@@ -61,7 +61,7 @@ export default function(state = {}, action) {
     case 'ADD_POSTIT_TO_GROUP':
       return {
         ...state,
-        [action.id]: {...state[action.id], postIts: [...state[action.id.postIts], action.postItId]}
+        [action.id]: {...state[action.id], postIts: [...state[action.id].postIts, action.postItId]}
       }
 
     default:
