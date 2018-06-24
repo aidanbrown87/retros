@@ -70,6 +70,20 @@ const boardTarget = {
   }
 };
 
+export const mapStateToProps = ({ postIts, groups }) => {
+  const groupedPostIts = Object.values(groups).reduce((accum, current) => {
+    return [...new Set([...accum, ...current.postIts])]
+  }, [])
+  const postItArray = Object.values(postIts)
+  const filteredPostIts = postItArray.filter(postIt => {
+    return !groupedPostIts.includes(postIt.id)
+  })
+  return {
+    postIts: filteredPostIts,
+    groups,
+  }
+};
+
 const mapDispatchToProps = dispatch => ({
     updatePostIt: (id, text) => dispatch(updatePostIt(id, text)),
     updatePosition: (id, x, y) => dispatch(updatePosition(id, x, y)),
@@ -78,7 +92,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    ({ postIts, groups }) => ({ postIts, groups }),
+    mapStateToProps,
     mapDispatchToProps
 )(
     DropTarget([ItemTypes.POSTIT, ItemTypes.GROUP], boardTarget, (connect, monitor) => ({
