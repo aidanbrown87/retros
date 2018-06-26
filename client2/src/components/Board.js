@@ -8,7 +8,7 @@ import { updatePostIt, updatePosition, updateColour } from "../postIts/reducer";
 import { DropTarget, XYCoord } from "react-dnd";
 import { ItemTypes } from "../itemTypes";
 import Group from "../groups/Group";
-import { addGroup, createGroup } from "../groups/reducer";
+import { addGroup, createGroup, updateGroupPosition } from "../groups/reducer";
 
 class Board extends Component {
     render() {
@@ -62,6 +62,9 @@ const boardTarget = {
             }
             case ItemTypes.GROUP: {
                 console.log(monitor.getItem())
+                const { groupId } = monitor.getItem();
+                const { x, y } = monitor.getSourceClientOffset();
+                props.updateGroupPosition(groupId, (x), (y))
             }
         }
         
@@ -89,6 +92,7 @@ const mapDispatchToProps = dispatch => ({
     updatePosition: (id, x, y) => dispatch(updatePosition(id, x, y)),
     updateColour: (id, colour) => dispatch(updateColour(id, colour)),
     createGroup: (id1, id2, x, y) => dispatch(createGroup(id1, id2, x, y)),
+    updateGroupPosition: (id, x, y) => dispatch(updateGroupPosition(id, x, y)),
 });
 
 export default connect(
