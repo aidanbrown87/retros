@@ -19,6 +19,7 @@ class Group extends Component {
                     {...postIt}
                     updatePostIt={updatePostIt}
                     updatePosition={updatePosition}
+                    updateColour={updateColour}
                     inGroup
                 />
                 ))}
