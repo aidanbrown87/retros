@@ -3,7 +3,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  border: solid red 5px;
+  border: solid #ccc 3px;
+  border-radius: 10px;
   max-width: 480px;
   padding: 5px;
   cursor: move;
@@ -11,10 +12,11 @@
 
 .group-name {
   position: absolute;
-  right: 5px;
+  right: 10px;
   top: -20px;
   border: none;
   padding: 5px;
   width: inherit;
   background-color: white;
+  text-transform: uppercase;
 }
