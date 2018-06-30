@@ -59,12 +59,14 @@ const boardTarget = {
                 const { postItId } = monitor.getItem();
                 const { x, y } = monitor.getSourceClientOffset();
                 props.updatePosition(postItId, (x), (y))
+                break;
             }
             case ItemTypes.GROUP: {
                 console.log(monitor.getItem())
                 const { groupId } = monitor.getItem();
                 const { x, y } = monitor.getSourceClientOffset();
                 props.updateGroupPosition(groupId, (x), (y))
+                break;
             }
         }
         

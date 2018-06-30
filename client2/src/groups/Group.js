@@ -1,18 +1,48 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
 
 import PostIt from '../postIts/PostIt';
 import { ItemTypes } from '../itemTypes';
 import { updatePostIt, updatePosition, updateColour } from '../postIts/reducer';
-import { addPostItToGroup } from './reducer';
+import { addPostItToGroup, editGroupName } from './reducer';
+import './group.css'
 
 class Group extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { isEditingGroupName: false };
+    }
+
+    toggleEditingGroup = () => {
+        this.setState({ isEditingGroupName: !this.state.isEditingGroupName })
+    }
+
+    onBlur = (event) => {
+        const value = event.target.value;
+        console.log("onblur")
+        console.log(value)
+        this.props.editGroupName(this.props.id, value)
+        this.toggleEditingGroup();
+        event.preventDefault()
+    }
+
     render() {
-        const { connectDragSource, postIts, updateColour, updatePosition, updatePostIt, xPos, yPos, isOver, connectDropTarget } = this.props;
+        const {
+            connectDragSource,
+            postIts,
+            updateColour,
+            updatePosition,
+            updatePostIt,
+            xPos,
+            yPos,
+            isOver,
+            connectDropTarget,
+            name,
+        } = this.props;
+        const { isEditingGroupName } = this.state;
         return connectDropTarget(connectDragSource(
-            <div style={{ position: 'absolute', left: xPos, top: yPos, display: 'flex', alignItems: 'flex-start', border: "solid red 5px" }} >
+            <div className='group' style={{ left: xPos, top: yPos }} >
                 {postIts.map(postIt => (
                     <PostIt
                     key={postIt.id}
@@ -24,14 +54,15 @@ class Group extends Component {
                 />
                 ))}
                 {isOver ? "drop" : null}
+                {isEditingGroupName
+                    ? <input className="group-name" defaultValue={name} onBlur={this.onBlur} />
+                    : <span className="group-name" onClick={this.toggleEditingGroup} >{name || "Group Name"}</span>
+                }
             </div>
+            
         ));
     }
 }
-
-Group.propTypes = {
-
-};
 
 const groupSourceSpec = {
     beginDrag(props) {
@@ -74,7 +105,8 @@ const mapDispatchToProps = dispatch => ({
     updatePostIt: (id, text) => dispatch(updatePostIt(id, text)),
     updatePosition: (id, x, y) => dispatch(updatePosition(id, x, y)),
     updateColour: (id, colour) => dispatch(updateColour(id, colour)),
-    addPostItToGroup: (groupId, id) => dispatch(addPostItToGroup(groupId, id))
+    addPostItToGroup: (groupId, id) => dispatch(addPostItToGroup(groupId, id)),
+    editGroupName: (groupId, name) => dispatch(editGroupName(groupId, name)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(ItemTypes.POSTIT, groupTarget, (connect, monitor) => ({

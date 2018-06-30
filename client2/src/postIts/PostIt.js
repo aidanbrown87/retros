@@ -124,7 +124,7 @@ const Dot = ({ colour, updateColour }) => {
   return (
     <div
       onClick={onClick}
-      style={{ backgroundColor: colour, height: 20, width: 20, borderRadius: "50%", border: "1px solid grey", margin: "0px 2px" }}
+      style={{ backgroundColor: colour, height: 20, width: 20, borderRadius: "50%", border: "1px solid grey", margin: "0px 2px", cursor: 'pointer' }}
     >
       
     </div>

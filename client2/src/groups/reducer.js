@@ -33,6 +33,15 @@ export const addPostItToGroup = (id, postItId) => {
     postItId
   }
 }
+
+export const editGroupName = (id, name) => {
+  return {
+    type: 'EDIT_GROUP_NAME',
+    id,
+    name,
+  }
+}
+
 const initial = {
   10: { id: 10, xPos: 600, yPos: 400, author: "test", postIts: ["4f77825f-4b83-452b"]},
   11: { id: 11, xPos: 0, yPos: 0, author: "test", postIts: ["dbb9c7a2-34db-493a"]}
@@ -63,7 +72,11 @@ export default function(state = {}, action) {
         ...state,
         [action.id]: {...state[action.id], postIts: [...state[action.id].postIts, action.postItId]}
       }
-
+    case 'EDIT_GROUP_NAME':
+      return {
+        ...state,
+        [action.id]: {...state[action.id], name: action.name }
+      }
     default:
       return state
   }
