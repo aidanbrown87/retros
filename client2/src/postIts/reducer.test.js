@@ -1,4 +1,9 @@
-import reducer, { addPostIt, updatePostIt, updatePosition, updateColour } from "./reducer";
+import reducer, {
+  addPostIt,
+  updatePostIt,
+  updatePosition,
+  updateColour
+} from "./reducer";
 
 jest.mock("./idGenerator.js");
 import { getNextId } from "./idGenerator";
@@ -41,7 +46,7 @@ it("updates a post it", () => {
   const newState = reducer(initialState, updatePostIt(1, newText));
   expect(newState[1]).toEqual({
     ...initialState[1],
-    text: newText,
+    text: newText
   });
 });
 
@@ -50,14 +55,14 @@ it("updates the position", () => {
   expect(newState[1]).toEqual({
     ...initialState[1],
     xPos: 200,
-    yPos: 300,
-  })
-})
+    yPos: 300
+  });
+});
 
 it("updates the colour", () => {
   const newState = reducer(initialState, updateColour(1, "red"));
   expect(newState[1]).toEqual({
     ...initialState[1],
     colour: "red"
-  })
-})
+  });
+});

@@ -11,16 +11,15 @@ const newGroupState = {
 };
 
 const initialState = {
-  "a": { id: "a", xPos: 600, yPos: 400, postIts: ["1", "2"]},
-  "b": { id: "b", xPos: 0, yPos: 0, postIts: ["3", "4"]}
-}
-
+  a: { id: "a", xPos: 600, yPos: 400, postIts: ["1", "2"] },
+  b: { id: "b", xPos: 0, yPos: 0, postIts: ["3", "4"] }
+};
 
 it("adds a group with postIts to an empty state ", () => {
   getNextId.mockImplementation(() => "a");
   const newState = reducer({}, createGroup("1", "2", 100, 200));
   expect(newState).toEqual({
-    "a": { 
+    a: {
       id: "a",
       xPos: 100,
       yPos: 200,
@@ -34,7 +33,10 @@ it("adds a post it to an existing group", () => {
   const newState = reducer(initialState, addPostItToGroup("a", "postItID"));
   expect(newState).toEqual({
     ...initialState,
-    "a": { ...initialState["a"], postIts: [...initialState["a"].postIts, "postItID"] }
+    a: {
+      ...initialState["a"],
+      postIts: [...initialState["a"].postIts, "postItID"]
+    }
   });
 });
 

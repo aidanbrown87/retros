@@ -20,8 +20,6 @@ class Group extends Component {
 
     onBlur = (event) => {
         const value = event.target.value;
-        console.log("onblur")
-        console.log(value)
         this.props.editGroupName(this.props.id, value)
         this.toggleEditingGroup();
         event.preventDefault()
@@ -39,6 +37,7 @@ class Group extends Component {
             isOver,
             connectDropTarget,
             name,
+            size,
         } = this.props;
         const { isEditingGroupName } = this.state;
         return connectDropTarget(connectDragSource(
@@ -51,9 +50,9 @@ class Group extends Component {
                     updatePosition={updatePosition}
                     updateColour={updateColour}
                     inGroup
+                    size={size}
                 />
                 ))}
-                {isOver ? "drop" : null}
                 {isEditingGroupName
                     ? <input className="group-name" defaultValue={name} onBlur={this.onBlur} />
                     : <span className="group-name" onClick={this.toggleEditingGroup} >{name || "Group Name"}</span>

@@ -9,7 +9,7 @@ class AddPostItButton extends Component {
       <button
         onClick={addPostIt}
         style={{
-          position: "absolute",
+          position: "fixed",
           left: 20,
           bottom: 20,
           width: 50,
@@ -17,8 +17,8 @@ class AddPostItButton extends Component {
           borderRadius: "50%",
           backgroundColor: "blue",
           fontSize: 20,
-          color: 'white',
-          outline: 'none',
+          color: "white",
+          outline: "none"
         }}
       >
         +
@@ -28,7 +28,10 @@ class AddPostItButton extends Component {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addPostIt: () => dispatch(addPostIt("test"))
+  addPostIt: () => dispatch(addPostIt("author"))
 });
 
-export default connect(undefined, mapDispatchToProps)(AddPostItButton);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(AddPostItButton);
