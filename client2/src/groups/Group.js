@@ -34,14 +34,16 @@ class Group extends Component {
             updatePostIt,
             xPos,
             yPos,
-            isOver,
             connectDropTarget,
             name,
             size,
+            isOver,
+            id
         } = this.props;
         const { isEditingGroupName } = this.state;
+        const isOverStyle = isOver ? { borderColor: 'green' } : {};
         return connectDropTarget(connectDragSource(
-            <div className='group' style={{ left: xPos, top: yPos }} >
+            <div className='group' style={{ left: xPos, top: yPos, ...isOverStyle }} >
                 {postIts.map(postIt => (
                     <PostIt
                     key={postIt.id}
@@ -51,6 +53,7 @@ class Group extends Component {
                     updateColour={updateColour}
                     inGroup
                     size={size}
+                    groupId={id}
                 />
                 ))}
                 {isEditingGroupName
@@ -80,15 +83,19 @@ function collect(connect, monitor) {
 
 const groupTarget = {
     drop(props, monitor) {
-      const handledByChild = monitor.didDrop()
         switch (monitor.getItemType()) {
             case ItemTypes.POSTIT: {
                 const { postItId } = monitor.getItem();
                 props.addPostItToGroup(props.id, postItId)
+                break
             }
             case ItemTypes.GROUP: {
                 console.log(monitor.getItem())
+                break
             }
+            default: [
+                console.log(monitor.getItem())
+            ]
         }
     }
 };
@@ -110,5 +117,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropTarget(ItemTypes.POSTIT, groupTarget, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver({ shallow: true }),
+    isOver: monitor.isOver({ shallow: false }),
   }))(DragSource(ItemTypes.GROUP, groupSourceSpec, collect)(Group)))

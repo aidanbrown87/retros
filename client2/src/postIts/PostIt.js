@@ -7,8 +7,8 @@ import { ItemTypes } from "../itemTypes";
 
 const PostItSourceSpec = {
   beginDrag(props) {
-    const { id } = props;
-    return { postItId: id };
+    const { id, inGroup, groupId } = props;
+    return { postItId: id, inGroup, groupId };
   }
 };
 
@@ -103,7 +103,7 @@ class PostIt extends Component {
           <img className="edit_icon" src={bucket} onClick={this.onEdit} />
         </div>
 
-        <div className="postIt_colours" style={{ height: editing ? 30 : 0 }}>
+        <div className="postIt_colours" style={{ height: editing ? 'auto' : 0, width: this.getSize() }}>
           <Dot colour="#ff7a7a" updateColour={this.onChangeColour} />
           <Dot colour="#65b8ff" updateColour={this.onChangeColour} />
           <Dot colour="#f77aff" updateColour={this.onChangeColour} />

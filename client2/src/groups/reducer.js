@@ -42,6 +42,14 @@ export const editGroupName = (id, name) => {
   };
 };
 
+export const removePostIt = (id, postItId) => {
+  return {
+    type: "REMOVE_POST_IT",
+    id,
+    postItId,
+  }
+}
+
 export default function(state = {}, action) {
   switch (action.type) {
     case "UPDATE_GROUP_POSITION":
@@ -79,6 +87,18 @@ export default function(state = {}, action) {
         ...state,
         [action.id]: { ...state[action.id], name: action.name }
       };
+    case "REMOVE_POST_IT":
+      const { id: groupId, postItId } = action
+      let postIts = state[groupId].postIts
+      const filteredPostIts = postIts.filter(p => p !== postItId)
+      const {[postItId]: postItToRemove, ...rest} = postIts
+      return {
+        ...state,
+        [groupId]: {
+          ...state[groupId],
+          postIts: filteredPostIts,
+        }
+      }
     default:
       return state;
   }

@@ -8,7 +8,7 @@ import { updatePostIt, updatePosition, updateColour } from "../postIts/reducer";
 import { DropTarget, XYCoord } from "react-dnd";
 import { ItemTypes } from "../itemTypes";
 import Group from "../groups/Group";
-import { addGroup, createGroup, updateGroupPosition } from "../groups/reducer";
+import { addGroup, createGroup, updateGroupPosition, removePostIt } from "../groups/reducer";
 import PrefToolbar from "../preferences/PrefToolbar";
 
 class Board extends Component {
@@ -55,11 +55,14 @@ class Board extends Component {
 const boardTarget = {
   drop(props, monitor) {
     const handledByChild = monitor.didDrop();
+    console.log('dropping')
     if (!handledByChild) {
       switch (monitor.getItemType()) {
         case ItemTypes.POSTIT: {
-          const { postItId } = monitor.getItem();
+          const { postItId, inGroup, groupId } = monitor.getItem();
+          console.log('droppedPostIt', monitor.getItem(), props)
           const { x, y } = monitor.getSourceClientOffset();
+          inGroup && props.removeFromGroup(groupId, postItId)
           props.updatePosition(postItId, x, y);
           break;
         }
@@ -95,7 +98,8 @@ const mapDispatchToProps = dispatch => ({
   updatePosition: (id, x, y) => dispatch(updatePosition(id, x, y)),
   updateColour: (id, colour) => dispatch(updateColour(id, colour)),
   createGroup: (id1, id2, x, y) => dispatch(createGroup(id1, id2, x, y)),
-  updateGroupPosition: (id, x, y) => dispatch(updateGroupPosition(id, x, y))
+  updateGroupPosition: (id, x, y) => dispatch(updateGroupPosition(id, x, y)),
+  removeFromGroup: (groupId, postItId) => dispatch(removePostIt(groupId, postItId)),
 });
 
 export default connect(
