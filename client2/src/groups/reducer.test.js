@@ -1,4 +1,4 @@
-import reducer, { addGroup, addPostItToGroup, createGroup, removePostIt } from "./reducer";
+import reducer, { addGroup, addPostItToGroup, createGroup, removePostIt, addGroupAction } from "./reducer";
 
 jest.mock("../postIts/idGenerator.js");
 import { getNextId } from "../postIts/idGenerator";
@@ -7,12 +7,13 @@ const newGroupState = {
   id: 0,
   xPos: 0,
   yPos: 0,
-  postIts: []
+  postIts: [],
+  actions: [],
 };
 
 const initialState = {
-  a: { id: "a", xPos: 600, yPos: 400, postIts: ["1", "2"], name: 'a' },
-  b: { id: "b", xPos: 0, yPos: 0, postIts: ["3", "4"], name: 'b' }
+  a: { id: "a", xPos: 600, yPos: 400, postIts: ["1", "2"], name: 'a', actions: [] },
+  b: { id: "b", xPos: 0, yPos: 0, postIts: ["3", "4"], name: 'b', actions: [] }
 };
 
 it("adds a group with postIts to an empty state ", () => {
@@ -23,7 +24,8 @@ it("adds a group with postIts to an empty state ", () => {
       id: "a",
       xPos: 100,
       yPos: 200,
-      postIts: ["1", "2"]
+      postIts: ["1", "2"],
+      actions: [],
     }
   });
 });
@@ -51,7 +53,16 @@ it("removes a postIt from an existing goup", () => {
   })
 })
 
-it('')
+it('should add an action to the group', () => {
+  const newState = reducer(initialState, addGroupAction("b", "test action"))
+  expect(newState).toEqual({
+    ...initialState,
+    b: {
+      ...initialState.b,
+      actions: ["test action"]
+    }
+  })
+})
 
 // it("updates a post it", () => {
 //   const newText = "new Text";

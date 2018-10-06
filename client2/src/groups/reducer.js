@@ -50,6 +50,14 @@ export const removePostIt = (id, postItId) => {
   }
 }
 
+export const addGroupAction = (id, groupAction) => {
+  return {
+    type: "ADD_ACTION",
+    id,
+    groupAction,
+  }
+}
+
 export default function(state = {}, action) {
   switch (action.type) {
     case "UPDATE_GROUP_POSITION":
@@ -65,14 +73,14 @@ export default function(state = {}, action) {
       const idNew = getNextId();
       return {
         ...state,
-        [idNew]: { id: idNew, xPos: 0, yPos: 0, postIts: [] }
+        [idNew]: { id: idNew, xPos: 0, yPos: 0, postIts: [], actions: [] }
       };
     case "CREATE_GROUP":
       const id = getNextId();
       const { id1, id2, xPos, yPos } = action;
       return {
         ...state,
-        [id]: { id, xPos, yPos, postIts: [id1, id2] }
+        [id]: { id, xPos, yPos, postIts: [id1, id2], actions: [] }
       };
     case "ADD_POSTIT_TO_GROUP":
       return {
@@ -99,6 +107,18 @@ export default function(state = {}, action) {
           postIts: filteredPostIts,
         }
       }
+    
+    case "ADD_ACTION": {
+      const { id, groupAction } = action;
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          actions: [...state[id].actions, groupAction]
+        }
+      };
+
+    }
     default:
       return state;
   }

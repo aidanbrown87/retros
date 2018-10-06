@@ -1,13 +1,18 @@
 .group {
   position: absolute;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  flex-direction: column;
   border: solid #ccc 3px;
   border-radius: 10px;
   max-width: 480px;
   padding: 5px;
   cursor: move;
+}
+
+.group-post-its {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .group-name {
