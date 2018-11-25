@@ -11,12 +11,6 @@ import GroupActions from "./GroupActions";
 import GroupName from "./GroupName";
 
 class Group extends Component {
-  onBlurAction = event => {
-    const value = event.target.value;
-    this.props.addGroupAction(this.props.id, value);
-    event.preventDefault();
-  };
-
   render() {
     const {
       connectDragSource,
@@ -32,7 +26,8 @@ class Group extends Component {
       isOver,
       id,
       actions,
-      editGroupName
+      editGroupName,
+      addGroupAction,
     } = this.props;
     const isOverStyle = isOver ? { borderColor: "green" } : {};
     return connectDropTarget(
@@ -55,12 +50,12 @@ class Group extends Component {
               />
             ))}
           </div>
-          <GroupActions actions={actions} />
-          <div>
-            <input onBlur={this.onBlurAction} />
-            <button>Add Action</button>
-          </div>
-
+          <GroupActions
+            id={id}
+            name={name}
+            actions={actions}
+            addGroupAction={addGroupAction}
+          />
           <GroupName name={name} id={id} editName={editGroupName} />
         </div>
       )
